@@ -2,8 +2,15 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs"); 
+// const { Server } = require("http");
 
 const app = express();
+
+//This is the port number that we are going to be workig on
+const port = process.env.PORT || 9090; 
+
+// const port = server.listen(process.env.PORT || 9090);
+
 
 
 //we are defining a variable objectArray and giving it the value of the content within our json file, we then parse it so that it returns a javascript object. 
@@ -11,7 +18,7 @@ let objectArray = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err
   if(err) throw err;
 }));
 
-const port = process.env.PORT || 3001; // Setting a port variable and running it in port 3001
+
 
 
 app.use(express.json());// makes it so that incoming data can be recognized as a JSON object
@@ -83,5 +90,5 @@ app.delete("/api/notes/:id",  (req, res) => {
 
 //allows us to see the server with all our individual requests get, post, del.
 app.listen(port, () =>
-console.log(`App listening at http://localhost:${port} 🚀`)
+console.log(`Listening at http://localhost:${port} `)
 );
