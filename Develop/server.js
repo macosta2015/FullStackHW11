@@ -1,9 +1,10 @@
-const express = require("express");// require express
-const fs = require("fs"); // require filesystem also known as fs (part of node)
-const path = require("path");// require path (part of node)
+//The required libraries. 
+const express = require("express");
+const path = require("path");
+const fs = require("fs"); 
 
-//defining the app variable, so that on every accion we establish that we want express to either get, post or delete.
 const app = express();
+
 
 //we are defining a variable objectArray and giving it the value of the content within our json file, we then parse it so that it returns a javascript object. 
 let objectArray = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err)=> {
