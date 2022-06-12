@@ -91,3 +91,7 @@ app.delete("/api/notes/:id",  (req, res) => {
 app.listen(port, () =>
 console.log(`Listening at http://localhost:${port} `)
 );
+
+
+// Using nodemon with NodeJS Servers              -It is used to save the package.json and then keep running it
+// https://www.youtube.com/watch?v=kV6MJ9W4whM
