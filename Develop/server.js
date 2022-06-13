@@ -3,12 +3,17 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs"); 
 
+const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. "Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
+
+const port = process.env.PORT || 9090; //This is th port number we are going to be using
+
 const app = express();
 
-//This is the port number that we are going to be workig on
-const port = process.env.PORT || 9090; 
+// CLIENTE ----------------------------------------------------------------
+// 
+// 
+//
 
-// const port = server.listen(process.env.PORT || 9090);
 
 
 
@@ -19,14 +24,14 @@ let objectArray = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err
 
 
 
-
+//Internal roots
 app.use(express.json());// makes it so that incoming data can be recognized as a JSON object
 app.use(express.urlencoded({ extended: true }));//method that allows express to recognize the incoming data as arrays or strings
 app.use(express.static("Develop/public"));//Lets me use the static css file within public folder. This way the user can visualize the notes.html file with stylings
 
 
 
-//APP .GET REQUESTS START HERE__________________________________________________________________
+//APP .GET REQUESTS START 
 //Gets the main index.html file and returns it to the user when they open the page/app.
 app.get("/", (req, res) => {
     console.log("here")
@@ -43,10 +48,10 @@ app.get("/api/notes", (req, res) => {
   return res.json(objectArray);
 });
 
-//APP.GET REQUESTS ENDS HERE_____________________________________________________________________
+//APP.GET REQUESTS ENDS 
 
 
-//APP.POST REQUESTS STARTS HERE__________________________________________________________________
+//APP.POST REQUESTS STARTS 
 //adds notes into the json file within the server
 app.post("/api/notes", (req, res) => {
   let newNote = {title: req.body.title, text: req.body.text} //our newNote will contain an array with 2 parameters
@@ -61,10 +66,10 @@ app.post("/api/notes", (req, res) => {
    res.json(objectArray)
 });
 
-//APP.POST REQUESTS END HERE (ONLY 1)___________________________________________________________
+//APP.POST REQUESTS END HERE (ONLY 1)
 
 
-//APP.DELETE REQUEST STARTS HERE________________________________________________________________
+//APP.DELETE REQUEST STARTS 
 app.delete("/api/notes/:id",  (req, res) => {
   let idSelected = JSON.parse(req.params.id);//the selected id will depend on the note that the user clicked on
 
@@ -84,7 +89,7 @@ app.delete("/api/notes/:id",  (req, res) => {
   res.end();
 })
 
-//APP.DELETE REQUEST ENDS HERE________________________________________________________________
+//APP.DELETE REQUEST ENDS 
 
 
 //allows us to see the server with all our individual requests get, post, del.
