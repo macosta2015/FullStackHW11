@@ -2,15 +2,10 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs"); 
-
 const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. 
 //"Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
-
 //Port # that we are going to be using
 const port = process.env.PORT || 9090; 
-
-
-
 //Initialize express 
 const app = express();
 
@@ -26,13 +21,20 @@ app.use(express.json());
 // 
 
 
-//we are defining a variable databaseObject and giving it the value of the content within our json file, we then parse it so that it returns a javascript object. 
+// JSON. stringify() takes a JavaScript object and then transforms it into a JSON string. 
+// JSON. parse() takes a JSON string and then transforms it into a JavaScript object.
+
 let databaseObject = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err)=> {
   if(err){
     cosnole.log('Error');
   }
+  // console.log('databaseObject: ' + databaseObject)
 }));
 
+test = JSON.stringify(databaseObject)
+console.log('JSON.stringify databaseObject: ' + test)
+console.log('databaseObject: ' + test.title)
+console.log('databaseObject: ' + test.text)
 
 
 //This allow us to use the assets folder that contains all the HTML/CSS/JS
@@ -72,7 +74,6 @@ app.post("/api/notes", (req, res) => {
 
 //IF we only do http://localhost:9090/ we are going to get at the main page, which is index.html
 app.get("/", (req, res) => {
-  console.info(`${res.method} request received `);
   res.sendFile(path.join("/Develop/public/index.html"))
 })
 
@@ -94,6 +95,9 @@ console.log(`Port http://localhost:${port} is listening`)
 // console.log(obj.result);
 // expected output: true
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+
+// [object Object],[object Object] Error
+// https://stackoverflow.com/questions/6691015/why-am-i-getting-object-object-instead-of-json
 
 // The difference between 
 // .JSON.stringify "[1,2,3]" 
