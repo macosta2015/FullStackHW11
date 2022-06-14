@@ -3,31 +3,36 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs"); 
 
-const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. "Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
+const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. 
+//"Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
 
-const port = process.env.PORT || 9090; //This is th port number we are going to be using
+//Port # that we are going to be using
+const port = process.env.PORT || 9090; 
 
+//Initialize express 
 const app = express();
 
 // CLIENTE ----------------------------------------------------------------
 // 
 // 
 //
+// CLIENT
 
 
-
-
-//we are defining a variable objectArray and giving it the value of the content within our json file, we then parse it so that it returns a javascript object. 
-let objectArray = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err)=> {
-  if(err) throw err;
+//we are defining a variable databaseObject and giving it the value of the content within our json file, we then parse it so that it returns a javascript object. 
+let databaseObject = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (err)=> {
+  if(err) cosnole.log('Error');
 }));
 
 
+//Middleware for parsing JSON. 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-//Internal roots
-app.use(express.json());// makes it so that incoming data can be recognized as a JSON object
-app.use(express.urlencoded({ extended: true }));//method that allows express to recognize the incoming data as arrays or strings
-app.use(express.static("Develop/public"));//Lets me use the static css file within public folder. This way the user can visualize the notes.html file with stylings
+
+//This allow us to use the assets folder that contains all the HTML/CSS/JS
+app.use(express.static(path.join(__dirname, 'Develop/public')));
+
 
 
 
@@ -45,7 +50,7 @@ app.get("/notes", (req, res)  => {
 
 //Returns the notes within the json file
 app.get("/api/notes", (req, res) => {
-  return res.json(objectArray);
+  return res.json(databaseObject);
 });
 
 //APP.GET REQUESTS ENDS 
@@ -55,15 +60,15 @@ app.get("/api/notes", (req, res) => {
 //adds notes into the json file within the server
 app.post("/api/notes", (req, res) => {
   let newNote = {title: req.body.title, text: req.body.text} //our newNote will contain an array with 2 parameters
-  newNote.id = objectArray.length.toString(); //converts it to a string
+  newNote.id = databaseObject.length.toString(); //converts it to a string
 
-  objectArray.push(newNote); //pushes the newNote into the objectArray 
+  databaseObject.push(newNote); //pushes the newNote into the databaseObject 
 
-  fs.writeFile("./Develop/db/db.json", JSON.stringify(objectArray), //writes in the file objectArray as a string within said array
+  fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject), //writes in the file databaseObject as a string within said array
   (err)=>{
     if(err) throw err;
   });
-   res.json(objectArray)
+   res.json(databaseObject)
 });
 
 //APP.POST REQUESTS END HERE (ONLY 1)
@@ -73,16 +78,16 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id",  (req, res) => {
   let idSelected = JSON.parse(req.params.id);//the selected id will depend on the note that the user clicked on
 
-  objectArray = objectArray.filter((e) => { //filters out the objectArray and returns it without the id that was selected 
+  databaseObject = databaseObject.filter((e) => { //filters out the databaseObject and returns it without the id that was selected 
     return e.id != idSelected;
   });
 
-  objectArray.forEach((val, index) => { //assigns each string within the array a new id
+  databaseObject.forEach((val, index) => { //assigns each string within the array a new id
     val.id = index.toString();
   });
 
-  //writes on the json file serverside the new values without the selected id that is deleted. and then turns the objectArray into a string so that it displays as one. and we can get the new values without the deleted ones.
-  fs.writeFile("./Develop/db/db.json", JSON.stringify(objectArray), (err) => {
+  //writes on the json file serverside the new values without the selected id that is deleted. and then turns the databaseObject into a string so that it displays as one. and we can get the new values without the deleted ones.
+  fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject), (err) => {
     if(err) 
     throw err;
   });
