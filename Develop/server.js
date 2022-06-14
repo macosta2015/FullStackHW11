@@ -34,8 +34,9 @@ let databaseObject = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (
 //The following code is just a test
 test = JSON.stringify(databaseObject)
 console.log('JSON.stringify databaseObject: ' + test)
-console.log('databaseObject: ' + test.title)
-console.log('databaseObject: ' + test.text)
+//Check how can we print below!
+// console.log('databaseObject: ' + databaseObject.title)
+
 
 
 //This allow us to use the assets folder that contains all the HTML/CSS/JS
@@ -61,8 +62,6 @@ app.post("/api/notes", (req, res) => {
   let noteInformation = {
     title:req.body.title, text: req.body.text
   } 
-
-  // noteInformation.id = databaseObject.length.toString(); 
   databaseObject.push(noteInformation); 
 
   fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject),
@@ -70,7 +69,8 @@ app.post("/api/notes", (req, res) => {
     console.log('SAVING')
   });
   //We are sending the user's input 
-  res.json(databaseObject)
+  //SENDING THE ARRAY (databaseObject) INTO THE DATABASE db.json
+  return res.json(databaseObject) 
 });
 
 //IF we only do http://localhost:9090/ we are going to get at the main page, which is index.html
