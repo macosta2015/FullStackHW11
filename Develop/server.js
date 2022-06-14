@@ -31,6 +31,7 @@ let databaseObject = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (
   // console.log('databaseObject: ' + databaseObject)
 }));
 
+//The following code is just a test
 test = JSON.stringify(databaseObject)
 console.log('JSON.stringify databaseObject: ' + test)
 console.log('databaseObject: ' + test.title)
