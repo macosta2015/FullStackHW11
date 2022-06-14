@@ -82,5 +82,21 @@ console.log(`Port http://localhost:${port} is listening`)
 );
 
 
-// Using nodemon with NodeJS Servers              -It is used to save the package.json and then keep running it
+// Using nodemon with NodeJS Servers             
+//  -It is used to save the package.json and then keep running it
 // https://www.youtube.com/watch?v=kV6MJ9W4whM
+
+//The parse method is the following
+// const json = '{"result":true, "count":42}';
+// const obj = JSON.parse(json);
+// console.log(obj.count);
+// // expected output: 42
+// console.log(obj.result);
+// expected output: true
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+
+// The difference between 
+// .JSON.stringify "[1,2,3]" 
+// When obj, it would be 
+// "1,2,3"
+// https://stackoverflow.com/questions/15834172/whats-the-difference-in-using-tostring-compared-to-json-stringify
