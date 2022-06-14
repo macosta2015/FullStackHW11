@@ -5,7 +5,8 @@ const fs = require("fs");
 const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. 
 //"Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
 //Port # that we are going to be using
-const port = process.env.PORT || 9090; 
+const port = 9091; 
+
 //Initialize express 
 const app = express();
 
@@ -32,8 +33,8 @@ let databaseObject = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf-8", (
 }));
 
 //The following code is just a test
-test = JSON.stringify(databaseObject)
-console.log('JSON.stringify databaseObject: ' + test)
+// test = JSON.stringify(databaseObject)
+// console.log('JSON.stringify databaseObject: ' + test)
 //Check how can we print below!
 // console.log('databaseObject: ' + databaseObject.title)
 
