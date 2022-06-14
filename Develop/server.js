@@ -59,8 +59,8 @@ app.post("/api/notes", (req, res) => {
     title:req.body.title, text: req.body.text
   } 
 
+  //It needs to be in JSON format in order to be able to read
   noteInformation.id = databaseObject.length.toString(); 
-
   databaseObject.push(noteInformation); 
 
   fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject),
