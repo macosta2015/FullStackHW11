@@ -55,24 +55,26 @@ app.get("/api/notes", (req, res) => {
 
 app.post("/api/notes", (req, res) => {
   console.info(`${res.method} request received `);
-  let noteInformation = {title: req.body.title, text: req.body.text} 
+  let noteInformation = {
+    title:req.body.title, text: req.body.text
+  } 
 
-  noteInformation.id = databaseObject.length.toString(); //converts it to a string
+  noteInformation.id = databaseObject.length.toString(); 
 
-  databaseObject.push(noteInformation); //pushes the noteInformation into the databaseObject 
+  databaseObject.push(noteInformation); 
 
-  fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject), //writes in the file databaseObject as a string within said array
+  fs.writeFile("./Develop/db/db.json", JSON.stringify(databaseObject),
   (err)=>{
-    if(err) throw err;
+    console.log('SAVING')
   });
-   res.json(databaseObject)
+  //We are sending the user's input 
+  res.json(databaseObject)
 });
 
 //IF we only do http://localhost:9090/ we are going to get at the main page, which is index.html
 app.get("/", (req, res) => {
   console.info(`${res.method} request received `);
   res.sendFile(path.join("/Develop/public/index.html"))
-  // res.sendFile(path.join("index.html"))
 })
 
 //THIS ALWAYS NEEDS TO GO AT LAST
