@@ -108,3 +108,6 @@ console.log(`Port http://localhost:${port} is listening`)
 // When obj, it would be 
 // "1,2,3"
 // https://stackoverflow.com/questions/15834172/whats-the-difference-in-using-tostring-compared-to-json-stringify
+
+// How to deploy to Heroku
+// https://www.youtube.com/watch?v=aUW5GAFhu6s
