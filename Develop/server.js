@@ -5,7 +5,9 @@ const fs = require("fs");
 const router = express.Router(); //We are not using the library to the left. It is used when we have several calls. 
 //"Nos crea una cápzula en donde vamos a registrar todas nuestras rutas"
 //Port # that we are going to be using
-const port = 9091; 
+// const port = 9091; 
+const port = process.env.PORT || 80
+
 
 //Initialize express 
 const app = express();
